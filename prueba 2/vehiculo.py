@@ -1,31 +1,34 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
 
 vehiculo_lista=[]
 
 class Vehiculo(Resource):
     def get(self, valor):
-        for persona in vehiculo_lista:
-            if persona['nombre'] == valor:
-                return {'conductor buscado': persona}
-        return {'resultado': 'persona no encontrada'}
+        for vehiculo in vehiculo_lista:
+            if vehiculo['id'] == valor:
+                return {'veiculo buscado': vehiculo}
+        abort(404, description="vehiculo no encontrado")  
+
+    def get(self):
+        return jsonify({'personas': vehiculo_lista})
 
     def post(self):
-        persona = request.get_json()
-        vehiculo_lista.append(persona)
-        return {'resultado': 'conductor añadido correctamente'}
+        vehiculo = request.get_json()
+        vehiculo_lista.append(vehiculo)
+        return {'resultado': 'vehiculo añadido correctamente'}
     
     def put(self, valor):
-        for persona in vehiculo_lista:
-            if persona['nombre'] == valor:
-                nuevo_nombre = request.json.get('nombre', persona['nombre'])
-                persona['nombre'] = nuevo_nombre
-                return {'resultado': 'conductor modificado correctamente'}
-        return {'resultado': 'conductor no encontrado'}
+        for vehiculo in vehiculo_lista:
+            if vehiculo['id'] == valor:
+                nuevo_nombre = request.json.get('id', vehiculo['id'])
+                vehiculo['id'] = nuevo_nombre
+                return {'resultado': 'vehiculo modificado correctamente'}
+        abort(404, description="vehiculo no encontrada")  
 
     def delete(self, valor):
-        for indice, persona in enumerate(vehiculo_lista):
-            if persona['nombre'] == valor:
+        for indice, vehiuculo in enumerate(vehiculo_lista):
+            if vehiuculo['id'] == valor:
                 vehiculo_lista.pop(indice)
-                return {'resultado': 'conductor borrado correctamente'}
-
+                return {'resultado': 'vehiculo borrado correctamente'}
+        abort(404, description="vehiculo no encontrada")  

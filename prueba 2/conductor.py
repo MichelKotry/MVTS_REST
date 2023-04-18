@@ -1,32 +1,35 @@
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
 
 conductor_lista=[]
 
 class Conductor(Resource):
     def get(self, valor):
-        for persona in conductor_lista:
-            if persona['nombre'] == valor:
-                return {'conductor buscado': persona}
-        return {'resultado': 'conductor no encontrado'}
+        for conductor in conductor_lista:
+            if conductor['id'] == valor:
+                return {'conductor buscado': conductor}
+        abort(404, description="conductor no encontrado")
+
+    def get(self):
+        return jsonify({'Conductores': conductor_lista})
 
     def post(self):
-        persona = request.get_json()
-        conductor_lista.append(persona)
+        conductor = request.get_json()
+        conductor_lista.append(conductor)
         return {'resultado': 'conductor añadido correctamente'}
     
     def put(self, valor):
-        for persona in conductor_lista:
-            if persona['nombre'] == valor:
-                nuevo_nombre = request.json.get('nombre', persona['nombre'])
-                persona['nombre'] = nuevo_nombre
+        for conductor in conductor_lista:
+            if conductor['id'] == valor:
+                nuevo_nombre = request.json.get('id', conductor['id'])
+                conductor['id'] = nuevo_nombre
                 return {'resultado': 'conductor modificado correctamente'}
-        return {'resultado': 'conductor no encontrado'}
+        abort(404, description="conductor no encontrado")
 
     def delete(self, valor):
-        for indice, persona in enumerate(conductor_lista):
-            if persona['nombre'] == valor:
+        for indice, conductor in enumerate(conductor_lista):
+            if conductor['id'] == valor:
                 conductor_lista.pop(indice)
                 return {'resultado': 'conductor borrado correctamente'}
-
+        abort(404, description="conductor no encontrado")
