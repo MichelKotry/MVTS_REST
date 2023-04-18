@@ -9,6 +9,7 @@ from ordenes import Ordenes
 from semaforos import Semaforo
 from ubicaciones import Ubicaciones
 from congestiones import Congestiones
+from ordenesMateriales import OrdenesMateriales
 
 app = Flask(__name__)
 api = Api(app)
@@ -23,6 +24,7 @@ api.add_resource(Ordenes, '/ordenes/<string:valor>', '/ordenes/')
 api.add_resource(Semaforo, '/semaforo/<string:valor>', '/semaforo/')
 api.add_resource(Ubicaciones, '/ubicaciones/<string:valor>', '/ubicaciones/')
 api.add_resource(Congestiones, '/congestiones/<string:valor>', '/congestiones/')
+api.add_resource(OrdenesMateriales, '/ordenMaterial/<string:valor>', '/ordenMaterial/')
 
 if __name__ == '__main__':
     app.run(debug=True)
