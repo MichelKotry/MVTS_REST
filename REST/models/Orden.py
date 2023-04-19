@@ -7,7 +7,7 @@ Base = declarative_base()
 class Orden(Base):
     __tablename__ = 'ordenes'
 
-    orden_id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     fecha_hora = Column(DateTime)
     estado = Column(String(50))
     gerente_id = Column(Integer, ForeignKey('gerentes.gerente_id', ondelete='CASCADE'))

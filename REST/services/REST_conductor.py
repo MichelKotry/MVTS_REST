@@ -9,26 +9,25 @@ from controls import ControlConductor
 class REST_Conductor(Resource):
     def __init__(self):
         self.control_conductor = ControlConductor()
-        
-    def get(self, id):
-        print(id)
-        conductor = self.control_conductor.get(int(id))
-        if conductor:
-            conductor_dict = conductor.__dict__.copy()
-            if '_sa_instance_state' in conductor_dict:
-                del conductor_dict['_sa_instance_state']
-            return jsonify(conductor_dict)
-        abort(404, description="conductor no encontrado")
+            
+    def get(self, id=None):
+        if id is None:
+            conductores = self.control_conductor.get_all()
+            conductores_dicts = [conductor.__dict__ for conductor in conductores]
+            for conductor_dict in conductores_dicts:
+                if '_sa_instance_state' in conductor_dict:
+                    del conductor_dict['_sa_instance_state']
+            return jsonify(conductores_dicts)
+        else:
+            conductor = self.control_conductor.get(int(id))
+            if conductor:
+                conductor_dict = conductor.__dict__
+                if '_sa_instance_state' in conductor_dict:
+                    del conductor_dict['_sa_instance_state']
+                return jsonify(conductor_dict)
+            abort(404, description="Conductor no encontrado")
 
-    def get(self):
-        conductores = self.control_conductor.get_all()
-        conductores_dicts = []
-        for conductor in conductores:
-            conductor_dict = conductor.__dict__.copy()
-            if '_sa_instance_state' in conductor_dict:
-                del conductor_dict['_sa_instance_state']
-            conductores_dicts.append(conductor_dict)
-        return jsonify(conductores_dicts)
+
 
     def post(self):
         conductor_data = request.get_json()

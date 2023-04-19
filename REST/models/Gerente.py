@@ -6,7 +6,7 @@ Base = declarative_base()
 class Gerente(Base):
     __tablename__ = 'gerentes'
 
-    gerente_id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     nombre = Column(String(255))
     correo_electronico = Column(String(255))
     fecha_nacimiento = Column(DateTime)

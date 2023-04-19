@@ -7,7 +7,7 @@ Base = declarative_base()
 class Ubicacion(Base):
     __tablename__ = 'ubicaciones'
 
-    ubicacion_id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     ubicacion_latitud = Column(Float)
     ubicacion_longitud = Column(Float)
     conductor_id = Column(Integer, ForeignKey('conductores.conductor_id', ondelete='CASCADE'))

@@ -16,7 +16,7 @@ api = Api(app)
 
 #Asignamos las Direcciones   
 api.add_resource(REST_Gerentes, '/gernte/<string:valor>', '/gerente/')
-api.add_resource(REST_Conductor, '/conductor/<string:id>', '/conductor/')
+api.add_resource(REST_Conductor, '/conductor/<int:id>', '/conductor/')
 api.add_resource(REST_Vehiculo, '/vehiculo/<string:valor>', '/vehiculo/')
 api.add_resource(REST_Mina, '/mina/<string:valor>', '/mina/')
 api.add_resource(REST_Materiales, '/materiales/<string:valor>', '/materiales/')

@@ -7,7 +7,7 @@ Base = declarative_base()
 class Vehiculo(Base):
     __tablename__ = 'vehiculos'
 
-    vehiculo_id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     modelo = Column(String(255))
     placa = Column(String(20))
     ubicacion_latitud = Column(Float)
