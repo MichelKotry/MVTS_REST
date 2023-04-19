@@ -14,6 +14,6 @@ class Vehiculo(Base):
     ubicacion_longitud = Column(Float)
     estado = Column(String(50))
     conductor_id = Column(Integer, ForeignKey('conductores.conductor_id', ondelete='CASCADE'))
-    conductor = relationship('Conductor', backref='vehiculos')
+    conductor = relationship('Conductor', backref='vehiculos') #no
     mina_id = Column(Integer, ForeignKey('minas.mina_id', ondelete='CASCADE'))
-    mina = relationship('Mina', backref='vehiculos')
+    mina = relationship('Mina', backref='vehiculos')#no

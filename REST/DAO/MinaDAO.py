@@ -25,9 +25,9 @@ class MinaDAO(IDAO):
             self.session.rollback()
             raise e
         
-    def get(self, mina_id: int) -> Mina:
+    def get(self, id: int) -> Mina:
         try:
-            return self.session.query(Mina).filter_by(mina_id=mina_id).first()
+            return self.session.query(Mina).filter_by(id=id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e
