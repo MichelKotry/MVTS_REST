@@ -1,6 +1,6 @@
 from flask import jsonify, request,abort
 from flask_restful import Resource
-from models import Orden
+from models.models import Orden
 from controls import ControlOrden
 
 class REST_Ordenes(Resource):
@@ -30,9 +30,8 @@ class REST_Ordenes(Resource):
         orden = Orden(fecha_hora = orden_data['fecha_hora'], 
                         estado = orden_data['estado'], 
                         gerente_id = orden_data['gerente_id'],
-                        gerente = orden_data['gerente'],
-                        vehiculo_id = orden_data['vehiculo_id'],
-                        vehiculo = orden_data['vehiculo'])
+                        vehiculo_id = orden_data['vehiculo_id'])
+                        
         print(orden)
         self.control_orden.create(orden)
         return {'resultado': 'orden añadida correctamente'}   
@@ -49,12 +48,9 @@ class REST_Ordenes(Resource):
             orden.estado = orden_data['estado']
         if 'gerente_id' in orden_data:
             orden.gerente_id = orden_data['gerente_id']
-        if 'gerente' in orden_data:
-            orden.gerente = orden_data['gerente']
         if 'vehiculo_id' in orden_data:
             orden.vehiculo_id = orden_data['vehiculo_id']
-        if 'vehiculo' in orden_data:
-            orden.vehiculo = orden_data['vehiculo']
+        
 
 
         self.control_orden.update(orden)

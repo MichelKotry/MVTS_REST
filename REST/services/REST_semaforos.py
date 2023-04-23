@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models import Semaforo
+from models.models import Semaforo
 from controls import ControlSemaforo
 
 class REST_Semaforo(Resource):
@@ -29,10 +29,9 @@ class REST_Semaforo(Resource):
         print(semaforo_data)
         semaforo = Semaforo(fecha_hora=semaforo_data['fecha_hora'], 
                       duracion=semaforo_data['duracion'], 
-                      ubicacion_id=semaforo_data['ubicacion_id'],
-                      ubicacion=semaforo_data['ubicacion'], 
-                      semaforo_id=semaforo_data['semaforo_id'], 
-                      semaforo=semaforo_data['semaforo'])
+                      ubicacion_id=semaforo_data['ubicacion_id'], 
+                      semaforo_id=semaforo_data['semaforo_id']) 
+                      
         print(semaforo)
         self.control_semaforo.create(semaforo)
         return {'resultado': 'semaforo añadido correctamente'}
@@ -49,13 +48,9 @@ class REST_Semaforo(Resource):
             semaforo.duracion = semaforo_data['duracion']
         if 'ubicacion_id' in semaforo_data:
             semaforo.ubicacion_id = semaforo_data['ubicacion_id']
-        if 'ubicacion' in semaforo_data:
-            semaforo.ubicacion = semaforo_data['ubicacion']
         if 'semaforo_id' in semaforo_data:
             semaforo.semaforo_id = semaforo_data['semaforo_id']
-        if 'semaforo' in semaforo_data:
-            semaforo.semaforo = semaforo_data['semaforo']
-        
+
         self.control_semaforo.update(semaforo)
         return jsonify({'resultado': 'semaforo modificado correctamente'})
 

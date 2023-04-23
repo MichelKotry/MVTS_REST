@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models import Gerente
+from models.models import Gerente
 from controls import ControlGerente
 personas_lista = []
 

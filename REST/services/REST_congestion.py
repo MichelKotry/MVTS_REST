@@ -1,6 +1,6 @@
 from flask import jsonify, request,abort
 from flask_restful import Resource
-from models import Congestion
+from models.models import Congestion
 from controls import ControlCongestion
 
 class REST_Congestion(Resource):

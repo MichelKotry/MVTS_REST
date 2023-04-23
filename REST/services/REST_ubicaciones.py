@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models import Ubicacion
+from models.models import Ubicacion
 from controls import ControlUbicacion
 
 class REST_Ubicaciones(Resource):
@@ -28,8 +28,7 @@ class REST_Ubicaciones(Resource):
         print(ubicacion_data)
         ubicacion = Ubicacion(ubicacion_latitud = ubicacion_data['ubicacion_latitud'], 
                       ubicacion_longitud = ubicacion_data['ubicacion_longitud'],
-                      conductor_id = ubicacion_data['conductor_id'], 
-                      conductor = ubicacion_data['conductor'])
+                      conductor_id = ubicacion_data['conductor_id'])
         print(ubicacion)
         self.control_ubicacion.create(ubicacion)
         return {'resultado': 'ubicacion añadida correctamente'}    
@@ -46,8 +45,6 @@ class REST_Ubicaciones(Resource):
             ubicacion.ubicacion_longitud = ubicacion_data['ubicacion_longitud']
         if 'conductor_id' in ubicacion_data:
             ubicacion.conductor_id = ubicacion_data['conductor_id']
-        if 'conductor' in ubicacion_data:
-            ubicacion.conductor = ubicacion_data['conductor']
 
         self.control_ubicacion.update(ubicacion)
         return jsonify({'resultado': 'ubicacion modificada correctamente'})

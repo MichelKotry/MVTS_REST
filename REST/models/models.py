@@ -32,13 +32,6 @@ class Mina(Base):
     ubicacion_longitud = Column(Float)
     
     vehiculos = relationship("Vehiculo", back_populates="mina")
-class Material(Base):
-    __tablename__ = 'materiales'
-
-    id = Column(Integer, primary_key=True)
-    nombre = Column(String(255))
-    tipo_material = Column(String(50))
-
 
 class Vehiculo(Base):
     __tablename__ = 'vehiculos'
@@ -65,3 +58,54 @@ class Orden(Base):
     vehiculo_id = Column(Integer, ForeignKey('vehiculos.id', ondelete='CASCADE'))
     gerente = relationship("Gerente")
     vehiculo = relationship("Vehiculo")
+
+class Material(Base):
+    __tablename__ = 'materiales'
+
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(255))
+    tipo_material = Column(String(50))
+
+class OrdenMaterial(Base):
+    __tablename__ = 'ordenes_materiales'
+
+    id = Column('orden_material_id', Integer, primary_key=True)
+    cantidad = Column(Integer, nullable=False)
+
+    orden_id = Column(Integer, ForeignKey('ordenes.id', ondelete='CASCADE'))
+    material_id = Column(Integer, ForeignKey('materiales.id', ondelete='CASCADE'))
+
+    orden = relationship('Orden', back_populates='materiales')
+    material = relationship('Material')
+
+class Ubicacion(Base):
+    __tablename__ = 'ubicaciones'
+
+    id = Column(Integer, primary_key=True)
+    ubicacion_latitud = Column(Float)
+    ubicacion_longitud = Column(Float)
+    conductor_id = Column(Integer, ForeignKey('conductores.id', ondelete='CASCADE'))
+    conductor = relationship("Conductor", back_populates="ubicaciones")
+
+class Semaforo(Base):
+    __tablename__ = 'semaforo'
+
+    id = Column(Integer, primary_key=True)
+    fecha_hora = Column(DateTime)
+    duracion = Column(Integer)
+    ubicacion_id = Column(Integer, ForeignKey('ubicaciones.id', ondelete='CASCADE'))
+    ubicacion = relationship("Ubicacion")
+    semaforo_id = Column(Integer, ForeignKey('semaforos.id', ondelete='CASCADE'))
+    semaforo = relationship("Semaforo")
+
+class Congestion(Base):
+    __tablename__ = 'congestiones'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    fecha_hora = Column(DateTime)
+    duracion = Column(Integer)
+    ubicacion_id = Column(Integer, ForeignKey('ubicaciones.id', ondelete='CASCADE'))
+    semaforo_id = Column(Integer, ForeignKey('semaforos.id', ondelete='CASCADE'))
+
+    ubicacion = relationship("Ubicacion", back_populates="congestiones")
+    semaforo = relationship("Semaforo", back_populates="congestiones")
