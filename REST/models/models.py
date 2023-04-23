@@ -34,7 +34,7 @@ class Mina(Base):
     ubicacion_longitud = Column(Float)
     
     vehiculos = relationship("Vehiculo", back_populates="mina")
-
+    semaforo = relationship("Semaforo", back_populates="mina")
 class Vehiculo(Base):
     __tablename__ = 'vehiculos'
     id = Column(Integer, primary_key=True)
@@ -73,7 +73,7 @@ class Material(Base):
 class OrdenMaterial(Base):
     __tablename__ = 'ordenes_materiales'
 
-    id = Column('orden_material_id', Integer, primary_key=True)
+    id = Column('id', Integer, primary_key=True)
     cantidad = Column(Integer, nullable=False)
 
     orden_id = Column(Integer, ForeignKey('ordenes.id', ondelete='CASCADE'))
@@ -96,12 +96,14 @@ class Semaforo(Base):
     __tablename__ = 'semaforos'
 
     id = Column(Integer, primary_key=True)
-    fecha_hora = Column(DateTime)
-    duracion = Column(Integer)
-    ubicacion_id = Column(Integer, ForeignKey('ubicaciones.id', ondelete='CASCADE'))
-    ubicacion = relationship("Ubicacion")
-    semaforo_id = Column(Integer, ForeignKey('semaforos.id', ondelete='CASCADE'))
-    semaforo = relationship("Semaforo", remote_side=[id], primaryjoin="and_(Semaforo.semaforo_id == Semaforo.id, Semaforo.ubicacion_id == Ubicacion.id)")
+    ubicacion_latitud = Column(Float)
+    ubicacion_longitud = Column(Float)
+    estado = Column(String(50))
+    tipo = Column(String(50))
+   
+    mina_id = Column(Integer, ForeignKey('minas.id', ondelete='CASCADE'))
+    mina = relationship("Mina", back_populates="semaforo")
+
     congestiones = relationship("Congestion", back_populates="semaforo")
 class Congestion(Base):
     __tablename__ = 'congestiones'

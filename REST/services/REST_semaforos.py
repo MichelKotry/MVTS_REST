@@ -27,10 +27,11 @@ class REST_Semaforo(Resource):
     def post(self):
         semaforo_data = request.get_json()
         print(semaforo_data)
-        semaforo = Semaforo(fecha_hora=semaforo_data['fecha_hora'], 
-                      duracion=semaforo_data['duracion'], 
-                      ubicacion_id=semaforo_data['ubicacion_id'], 
-                      semaforo_id=semaforo_data['semaforo_id']) 
+        semaforo = Semaforo(ubicacion_latitud=semaforo_data['ubicacion_latitud'], 
+                      ubicacion_longitud=semaforo_data['ubicacion_longitud'], 
+                      estado=semaforo_data['estado'], 
+                      tipo=semaforo_data['tipo'],
+                      mina_id=semaforo_data['mina_id']) 
                       
         print(semaforo)
         self.control_semaforo.create(semaforo)
@@ -42,14 +43,16 @@ class REST_Semaforo(Resource):
         if not semaforo:
             abort(404, message="semaforo no encontrado")
 
-        if 'fecha_hora' in semaforo_data:
-            semaforo.fecha_hora = semaforo_data['fecha_hora']
-        if 'duracion' in semaforo_data:
-            semaforo.duracion = semaforo_data['duracion']
-        if 'ubicacion_id' in semaforo_data:
-            semaforo.ubicacion_id = semaforo_data['ubicacion_id']
-        if 'semaforo_id' in semaforo_data:
-            semaforo.semaforo_id = semaforo_data['semaforo_id']
+        if 'ubicacion_latitud' in semaforo_data:
+            semaforo.fecha_hora = semaforo_data['ubicacion_latitud']
+        if 'ubicacion_longitud' in semaforo_data:
+            semaforo.duracion = semaforo_data['ubicacion_longitud']
+        if 'estado' in semaforo_data:
+            semaforo.ubicacion_id = semaforo_data['estado']
+        if 'tipo' in semaforo_data:
+            semaforo.semaforo_id = semaforo_data['tipo']
+        if 'mina_id' in semaforo_data:
+            semaforo.semaforo_id = semaforo_data['mina_id']
 
         self.control_semaforo.update(semaforo)
         return jsonify({'resultado': 'semaforo modificado correctamente'})

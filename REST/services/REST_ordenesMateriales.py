@@ -32,7 +32,7 @@ class REST_OrdenesMateriales(Resource):
                         material_id = ordenMaterial_data['material_id'])
         
         print(ordenMaterial)
-        self.control_orden.create(ordenMaterial)
+        self.control_ordenMaterial.create(ordenMaterial)
         return {'resultado': 'orden añadida correctamente'}  
     
     def put(self, id):
