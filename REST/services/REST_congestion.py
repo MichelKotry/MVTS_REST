@@ -5,7 +5,7 @@ from controls import ControlCongestion
 
 class REST_Congestion(Resource):
     def __init__(self):
-        self.control_conductor = ControlCongestion()
+        self.control_congestion = ControlCongestion()
             
     def get(self, id=None):
         if id is None:
@@ -37,3 +37,27 @@ class REST_Congestion(Resource):
         self.control_congestion.create(congestion)
         return jsonify({'resultado': 'congestion añadida correctamente'})
     
+    def put(self, id):
+        congestion_data = request.get_json()
+        congestion = self.control_congestion.get(id)
+        if not congestion:
+            abort(404, message="congestion no encontrada")
+
+        if 'fecha_hora' in congestion_data:
+            congestion.fecha_hora = congestion_data['fecha_hora']
+        if 'duracion' in congestion_data:
+            congestion.duracion = congestion_data['duracion']
+        if 'ubicacion_id' in congestion_data:
+            congestion.ubicacion_id = congestion_data['ubicacion_id']
+        if 'semaforo_id' in congestion_data:
+            congestion.semaforo_id = congestion_data['semaforo_id']
+
+        self.control_congestion.update(congestion)
+        return jsonify({'resultado': 'congestion modificada correctamente'})
+
+    def delete(self, id):
+        congestion = self.control_congestion.get(id)
+        if not Congestion:
+            abort(404, message="congestion no encontrada")
+        self.control_congestion.delete(congestion)
+        return jsonify({'resultado': 'congestion borrado correctamente'})

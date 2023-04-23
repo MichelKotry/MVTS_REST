@@ -10,8 +10,8 @@ class OrdenMaterial(Base):
     id = Column('orden_material_id', Integer, primary_key=True)
     cantidad = Column(Integer, nullable=False)
 
-    orden_id = Column(Integer, ForeignKey('ordenes.orden_id', ondelete='CASCADE'))
-    material_id = Column(Integer, ForeignKey('materiales.material_id', ondelete='CASCADE'))
+    orden_id = Column(Integer, ForeignKey('ordenes.id', ondelete='CASCADE'))
+    material_id = Column(Integer, ForeignKey('materiales.id', ondelete='CASCADE'))
 
     orden = relationship('Orden', back_populates='materiales')
     material = relationship('Material')

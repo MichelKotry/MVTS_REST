@@ -26,9 +26,9 @@ class MaterialDAO(IDAO):
             self.session.rollback()
             raise e
         
-    def get(self, material_id: int) -> Material:
+    def get(self, id: int) -> Material:
         try:
-            return self.session.query(Material).filter_by(material_id=material_id).first()
+            return self.session.query(Material).filter_by(id=id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e

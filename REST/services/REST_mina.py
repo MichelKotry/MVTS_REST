@@ -47,7 +47,7 @@ class REST_Mina(Resource):
         if 'ubicacion_longitud' in mina_data:
             mina.ubicacion_longitud = mina_data['ubicacion_longitud']
         
-        self.control_conductor.update(mina)
+        self.control_mina.update(mina)
         return jsonify({'resultado': 'mina modificada correctamente'})
 
     def delete(self, id):
@@ -55,4 +55,4 @@ class REST_Mina(Resource):
         if not mina:
             abort(404, message="mina no encontrada")
         self.control_mina.delete(mina)
-        return jsonify({'resultado': 'conductor borrado correctamente'})
+        return jsonify({'resultado': 'mina borrada correctamente'})
