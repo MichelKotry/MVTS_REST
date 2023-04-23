@@ -15,7 +15,7 @@ app = Flask(__name__)
 api = Api(app)
 
 #Asignamos las Direcciones   
-api.add_resource(REST_Gerentes, '/gernte/<int:id>', '/gerente/')
+api.add_resource(REST_Gerentes, '/gerente/<int:id>', '/gerente/')
 api.add_resource(REST_Conductor, '/conductor/<int:id>', '/conductor/')
 api.add_resource(REST_Vehiculo, '/vehiculo/<int:id>' , '/vehiculo/')
 api.add_resource(REST_Mina, '/mina/<int:id>', '/mina/')
