@@ -15,6 +15,14 @@ class Conductor(Base):
 
     vehiculos = relationship("Vehiculo", back_populates="conductor")
 
+class Gerente(Base):
+    __tablename__ = 'gerentes'
+
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(255))
+    correo_electronico = Column(String(255))
+    fecha_nacimiento = Column(DateTime)
+    telefono = Column(String(20))
 
 class Mina(Base):
     __tablename__ = 'minas'
@@ -24,6 +32,12 @@ class Mina(Base):
     ubicacion_longitud = Column(Float)
     
     vehiculos = relationship("Vehiculo", back_populates="mina")
+class Material(Base):
+    __tablename__ = 'materiales'
+
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(255))
+    tipo_material = Column(String(50))
 
 
 class Vehiculo(Base):
@@ -40,3 +54,14 @@ class Vehiculo(Base):
     
     mina_id = Column(Integer, ForeignKey('minas.id', ondelete='CASCADE'))
     mina = relationship("Mina", back_populates="vehiculos")
+
+class Orden(Base):
+    __tablename__ = 'ordenes'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    fecha_hora = Column(DateTime)
+    estado = Column(String(50))
+    gerente_id = Column(Integer, ForeignKey('gerentes.id', ondelete='CASCADE'))
+    vehiculo_id = Column(Integer, ForeignKey('vehiculos.id', ondelete='CASCADE'))
+    gerente = relationship("Gerente")
+    vehiculo = relationship("Vehiculo")
