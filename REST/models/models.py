@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
@@ -14,6 +15,7 @@ class Conductor(Base):
     telefono = Column(String(20))
 
     vehiculos = relationship("Vehiculo", back_populates="conductor")
+    ubicaciones = relationship("Ubicacion", back_populates="conductor")
 
 class Gerente(Base):
     __tablename__ = 'gerentes'
@@ -58,6 +60,8 @@ class Orden(Base):
     vehiculo_id = Column(Integer, ForeignKey('vehiculos.id', ondelete='CASCADE'))
     gerente = relationship("Gerente")
     vehiculo = relationship("Vehiculo")
+    
+    materiales = relationship('OrdenMaterial', back_populates='orden')
 
 class Material(Base):
     __tablename__ = 'materiales'
@@ -86,9 +90,10 @@ class Ubicacion(Base):
     ubicacion_longitud = Column(Float)
     conductor_id = Column(Integer, ForeignKey('conductores.id', ondelete='CASCADE'))
     conductor = relationship("Conductor", back_populates="ubicaciones")
+    congestiones = relationship("Congestion", back_populates="ubicacion")
 
 class Semaforo(Base):
-    __tablename__ = 'semaforo'
+    __tablename__ = 'semaforos'
 
     id = Column(Integer, primary_key=True)
     fecha_hora = Column(DateTime)
@@ -96,8 +101,8 @@ class Semaforo(Base):
     ubicacion_id = Column(Integer, ForeignKey('ubicaciones.id', ondelete='CASCADE'))
     ubicacion = relationship("Ubicacion")
     semaforo_id = Column(Integer, ForeignKey('semaforos.id', ondelete='CASCADE'))
-    semaforo = relationship("Semaforo")
-
+    semaforo = relationship("Semaforo", remote_side=[id], primaryjoin="and_(Semaforo.semaforo_id == Semaforo.id, Semaforo.ubicacion_id == Ubicacion.id)")
+    congestiones = relationship("Congestion", back_populates="semaforo")
 class Congestion(Base):
     __tablename__ = 'congestiones'
 
