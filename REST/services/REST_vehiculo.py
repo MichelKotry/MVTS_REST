@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models import Vehiculo
+from models.models import Vehiculo
 from controls import ControlVehiculo
 
 class REST_Vehiculo(Resource):

@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
-from models.Vehiculo import Vehiculo
+from models.models import Vehiculo
 from DAO.IDAO import IDAO
 from conexionBD.Database import Database
 
