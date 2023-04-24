@@ -3,12 +3,13 @@ from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
 from models.models import Conductor
 from controls import ControlConductor
-
+from flask_socketio import emit
 
 
 class REST_Conductor(Resource):
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.control_conductor = ControlConductor()
+        self.socketio = kwargs['socketio']
             
     def get(self, id=None):
         if id is None:
@@ -38,7 +39,9 @@ class REST_Conductor(Resource):
                       telefono=conductor_data['telefono'])
         print(conductor)
         self.control_conductor.create(conductor)
-        return {'resultado': 'conductor añadido correctamente'}
+        # Emitir un evento a los clientes conectados
+        self.socketio.emit('nuevo_conductor', {'conductor': conductor.to_dict()})
+        return {'resultado': 'vehiculo añadido correctamente'}
     
     def put(self, id):
         conductor_data = request.get_json()
@@ -56,6 +59,7 @@ class REST_Conductor(Resource):
             conductor.telefono = conductor_data['telefono']
 
         self.control_conductor.update(conductor)
+        self.socketio.emit('conductor', {'conductor': conductor.to_dict()})
         return jsonify({'resultado': 'conductor modificado correctamente'})
 
     def delete(self, id):
