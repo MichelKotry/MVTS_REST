@@ -27,7 +27,7 @@ CREATE TABLE semaforos (
   ubicacion_longitud NUMERIC(9,6),
   estado VARCHAR(50),
   tipo VARCHAR(50),
-  mina_id INTEGER REFERENCES minas(id) ON DELETE CASCADE
+  mina_id INTEGER
 );
 
 CREATE TABLE materiales (
@@ -42,7 +42,7 @@ CREATE TABLE ubicaciones (
   id SERIAL PRIMARY KEY,
   ubicacion_latitud NUMERIC(9,6),
   ubicacion_longitud NUMERIC(9,6),
-  conductor_id INTEGER REFERENCES conductores(id) ON DELETE CASCADE
+  conductor_id INTEGER
 );
 
 
@@ -51,8 +51,8 @@ CREATE TABLE congestiones (
   id SERIAL PRIMARY KEY,
   fecha_hora TIMESTAMP,
   duracion INTEGER,
-  ubicacion_id INTEGER REFERENCES ubicaciones(id) ON DELETE CASCADE,
-  semaforo_id INTEGER REFERENCES semaforos(id) ON DELETE CASCADE
+  ubicacion_id INTEGER,
+  semaforo_id INTEGER
 );
 
 CREATE TABLE vehiculos (
@@ -62,21 +62,21 @@ CREATE TABLE vehiculos (
   ubicacion_latitud NUMERIC(9,6),
   ubicacion_longitud NUMERIC(9,6),
   estado VARCHAR(50),
-  conductor_id INTEGER REFERENCES conductores(conductor_id) ON DELETE CASCADE,
-  mina_id INTEGER REFERENCES minas(id) ON DELETE CASCADE
+  conductor_id INTEGER,
+  mina_id INTEGER
 );
 
 CREATE TABLE ordenes (
   id SERIAL PRIMARY KEY,
   fecha_hora TIMESTAMP,
   estado VARCHAR(50),
-  gerente_id INTEGER REFERENCES gerentes(gerente_id) ON DELETE CASCADE,
-  vehiculo_id INTEGER REFERENCES vehiculos(id) ON DELETE CASCADE
+  gerente_id INTEGER,
+  vehiculo_id INTEGER
 );
 
 CREATE TABLE ordenes_materiales (
   id SERIAL PRIMARY KEY,
   cantidad INTEGER,
-  orden_id INTEGER REFERENCES ordenes(orden_id) ON DELETE CASCADE,
-  material_id INTEGER REFERENCES materiales(id) ON DELETE CASCADE
+  orden_id INTEGER,
+  material_id INTEGER
 );
