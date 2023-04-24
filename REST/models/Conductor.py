@@ -14,4 +14,4 @@ class Conductor(Base):
     fecha_nacimiento = Column(DateTime)
     telefono = Column(String(20))
 
-    vehiculos = relationship("Vehiculo", back_populates="conductor")
+

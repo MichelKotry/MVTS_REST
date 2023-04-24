@@ -26,9 +26,9 @@ class OrdenDAO(IDAO):
             self.session.rollback()
             raise e
         
-    def get(self, orden_id: int) -> Orden:
+    def get(self, id: int) -> Orden:
         try:
-            return self.session.query(Orden).filter_by(orden_id=orden_id).first()
+            return self.session.query(Orden).filter_by(id = id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e

@@ -1,6 +1,6 @@
 from flask import  jsonify, request,abort
 from flask_restful import Resource
-from models.models import OrdenMaterial
+from models import OrdenMaterial
 from controls import ControlOrdenMaterial
 
 class REST_OrdenesMateriales(Resource):
@@ -42,11 +42,11 @@ class REST_OrdenesMateriales(Resource):
             abort(404, message="orden no encontrada")
 
         if 'cantidad' in ordenMaterial_data:
-            ordenMaterial.cantidad = ordenMaterial['cantidad']
+            ordenMaterial.cantidad = ordenMaterial_data['cantidad']
         if 'orden_id' in ordenMaterial_data:
-            ordenMaterial.orden_id = ordenMaterial['orden_id']
+            ordenMaterial.orden_id = ordenMaterial_data['orden_id']
         if 'material_id' in ordenMaterial_data:
-            ordenMaterial.material_id = ordenMaterial['material_id']
+            ordenMaterial.material_id = ordenMaterial_data['material_id']
         
 
         self.control_ordenMaterial.update(ordenMaterial)

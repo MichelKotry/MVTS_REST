@@ -26,9 +26,9 @@ class SemaforoDAO(IDAO):
             self.session.rollback()
             raise e
         
-    def get(self, semaforo_id: int) -> Semaforo:
+    def get(self, id: int) -> Semaforo:
         try:
-            return self.session.query(Semaforo).filter_by(semaforo_id=semaforo_id).first()
+            return self.session.query(Semaforo).filter_by(id= id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e

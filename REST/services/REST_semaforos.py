@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models.models import Semaforo
+from models import Semaforo
 from controls import ControlSemaforo
 
 class REST_Semaforo(Resource):
@@ -44,15 +44,15 @@ class REST_Semaforo(Resource):
             abort(404, message="semaforo no encontrado")
 
         if 'ubicacion_latitud' in semaforo_data:
-            semaforo.fecha_hora = semaforo_data['ubicacion_latitud']
+            semaforo.ubicacion_latitud = semaforo_data['ubicacion_latitud']
         if 'ubicacion_longitud' in semaforo_data:
-            semaforo.duracion = semaforo_data['ubicacion_longitud']
+            semaforo.ubicacion_longitud = semaforo_data['ubicacion_longitud']
         if 'estado' in semaforo_data:
-            semaforo.ubicacion_id = semaforo_data['estado']
+            semaforo.estado = semaforo_data['estado']
         if 'tipo' in semaforo_data:
-            semaforo.semaforo_id = semaforo_data['tipo']
+            semaforo.tipo = semaforo_data['tipo']
         if 'mina_id' in semaforo_data:
-            semaforo.semaforo_id = semaforo_data['mina_id']
+            semaforo.mina_id = semaforo_data['mina_id']
 
         self.control_semaforo.update(semaforo)
         return jsonify({'resultado': 'semaforo modificado correctamente'})

@@ -10,5 +10,5 @@ class Ubicacion(Base):
     id = Column(Integer, primary_key=True)
     ubicacion_latitud = Column(Float)
     ubicacion_longitud = Column(Float)
-    conductor_id = Column(Integer, ForeignKey('conductores.id', ondelete='CASCADE'))
-    conductor = relationship("Conductor", back_populates="ubicaciones")
+    conductor_id = Column(Integer)
+   

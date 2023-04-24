@@ -10,7 +10,6 @@ class Orden(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     fecha_hora = Column(DateTime)
     estado = Column(String(50))
-    gerente_id = Column(Integer, ForeignKey('gerentes.id', ondelete='CASCADE'))
-    vehiculo_id = Column(Integer, ForeignKey('vehiculos.id', ondelete='CASCADE'))
-    gerente = relationship("Gerente")
-    vehiculo = relationship("Vehiculo")
+    gerente_id = Column(Integer)
+    vehiculo_id = Column(Integer)
+   

@@ -26,9 +26,9 @@ class VehiculoDAO(IDAO):
             self.session.rollback()
             raise e
 
-    def get(self, vehiculo_id: int) -> Vehiculo:
+    def get(self, id: int) -> Vehiculo:
         try:
-            return self.session.query(Vehiculo).filter_by(vehiculo_id=vehiculo_id).first()
+            return self.session.query(Vehiculo).filter_by(id=id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e

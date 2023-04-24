@@ -1,7 +1,7 @@
 
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models.models import Conductor
+from models import Conductor
 from controls import ControlConductor
 
 

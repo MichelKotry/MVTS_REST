@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models.models import Material
+from models import Material
 from controls import ControlMaterial
 
 class REST_Materiales(Resource):

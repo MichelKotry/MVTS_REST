@@ -1,6 +1,6 @@
 from flask import jsonify, request,abort
 from flask_restful import Resource
-from models.models import Orden
+from models import Orden
 from controls import ControlOrden
 
 class REST_Ordenes(Resource):
@@ -43,7 +43,7 @@ class REST_Ordenes(Resource):
             abort(404, message="orden no encontrada")
 
         if 'fecha_hora' in orden_data:
-            orden.fecha_hora = orden['fecha_hora']
+            orden.fecha_hora = orden_data['fecha_hora']
         if 'estado' in orden_data:
             orden.estado = orden_data['estado']
         if 'gerente_id' in orden_data:

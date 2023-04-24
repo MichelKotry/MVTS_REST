@@ -10,4 +10,4 @@ class Mina(Base):
     ubicacion_latitud = Column(Float)
     ubicacion_longitud = Column(Float)
     
-    vehiculos = relationship("Vehiculo", back_populates="mina")
+   

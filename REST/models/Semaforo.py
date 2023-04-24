@@ -5,12 +5,11 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class Semaforo(Base):
-    __tablename__ = 'semaforo'
+    __tablename__ = 'semaforos'
 
     id = Column(Integer, primary_key=True)
-    fecha_hora = Column(DateTime)
-    duracion = Column(Integer)
-    ubicacion_id = Column(Integer, ForeignKey('ubicaciones.id', ondelete='CASCADE'))
-    ubicacion = relationship("Ubicacion")
-    semaforo_id = Column(Integer, ForeignKey('semaforos.id', ondelete='CASCADE'))
-    semaforo = relationship("Semaforo")
+    ubicacion_latitud = Column(Float)
+    ubicacion_longitud = Column(Float)
+    estado = Column(String(50))
+    tipo = Column(String(50))
+    mina_id = Column(Integer)

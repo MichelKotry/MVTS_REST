@@ -26,9 +26,9 @@ class CongestionDAO(IDAO):
             self.session.rollback()
             raise e
         
-    def get(self, congestion_id: int) -> Congestion:
+    def get(self, id: int) -> Congestion:
         try:
-            return self.session.query(Congestion).filter_by(congestion_id=congestion_id).first()
+            return self.session.query(Congestion).filter_by(id=id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e

@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models.models import Gerente
+from models import Gerente
 from controls import ControlGerente
-personas_lista = []
+
 
 class REST_Gerentes(Resource):
     def __init__(self):
@@ -43,14 +43,14 @@ class REST_Gerentes(Resource):
             abort(404, message="gerente no encontrada")
 
         if 'nombre' in gerente_data:
-            gerente.nombre = gerente['nombre']
+            gerente.nombre = gerente_data['nombre']
         if 'correo_electronico' in gerente_data:
             gerente.correo_electronico = gerente_data['correo_electronico']
         if 'fecha_nacimiento' in gerente_data:
             gerente.fecha_nacimiento = gerente_data['fecha_nacimiento']
         if 'telefono' in gerente_data:
             gerente.telefono = gerente_data['telefono']
-        
+    
         self.control_gerente.update(gerente)
         return jsonify({'resultado': 'gerente modificado correctamente'})
 

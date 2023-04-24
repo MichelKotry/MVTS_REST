@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models.models import Mina
+from models import Mina
 from controls import ControlMina
 
 class REST_Mina(Resource):

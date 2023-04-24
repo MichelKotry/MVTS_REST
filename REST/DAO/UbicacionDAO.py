@@ -26,9 +26,9 @@ class UbicacionDAO(IDAO):
             self.session.rollback()
             raise e
 
-    def get(self, ubicacion_id: int) -> Ubicacion:
+    def get(self, id: int) -> Ubicacion:
         try:
-            return self.session.query(Ubicacion).filter_by(ubicacion_id=ubicacion_id).first()
+            return self.session.query(Ubicacion).filter_by(id= id).first()
         except SQLAlchemyError as e:
             self.session.rollback()
             raise e

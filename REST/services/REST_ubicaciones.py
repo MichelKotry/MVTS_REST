@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request,abort
 from flask_restful import Resource, Api
-from models.models import Ubicacion
+from models import Ubicacion
 from controls import ControlUbicacion
 
 class REST_Ubicaciones(Resource):
